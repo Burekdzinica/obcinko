@@ -1,0 +1,257 @@
+\documentclass[11pt,                                          % Main text font size
+               a4paper,                                       % Paper size
+               openright,                                     % Chapters start on odd pages (right)
+               twoside]{report}                               % Print two-sided, LaTeX 'report' template
+
+% -------------------------------------------------------------
+% PACKAGES - Only load if necessary / used
+% -------------------------------------------------------------
+\usepackage{microtype}                                        % Tweak font spacing for aesthetics
+\usepackage{cmbright}                                         % SS font - Comment this line for LaTeX base font
+\usepackage[utf8]{inputenc}                                   % Includes letters with accents
+\usepackage[T1]{fontenc}                                      % 8-bit encoding with 256 glyphs
+\usepackage[colorlinks=true, allcolors=black]{hyperref}       % Hyper-references in PDF (e.g. urlcolor=blue)
+\usepackage{fancyhdr}                                         % Headers and footers
+\usepackage{subfigure}                                        % Multiple figures environment
+\usepackage{amsmath}                                          % Standard maths
+\usepackage{amssymb}                                          % Standard maths symbols
+\usepackage{graphicx}                                         % Include graphics
+\usepackage{booktabs}                                         % Professional tables
+\usepackage[english]{babel}                                   % Babel and language definitions
+\usepackage[a4paper,                                          % Paper size
+            top = 35mm,                                       % Top margin
+            bottom = 30mm,                                    % Bottom margin
+            left = 35mm,                                      % Left margin
+            right = 25mm]{geometry}                           % Right margin
+\usepackage{nomencl}                                          % Include nomenclature
+\usepackage[page,toc,titletoc,title]{appendix}                % Include appendixes
+\usepackage{csquotes}                                         % For inline and display quotations
+\usepackage{lipsum}                                           % Generate automatic text - Lorem Ipsum
+\usepackage{moreverb}                                         % Output for word and character count
+\usepackage{tcolorbox}                                        % Coloured boxes
+\usepackage{xcolor}                                           % Advanced colours
+\usepackage{soul}                                             % Highlight text and other text things
+\usepackage{caption}                                          % Manage captions in floats
+\usepackage{chemfig,chemformula}                              % Use chemistry formulae
+\usepackage{pgfgantt}                                         % Use a Gantt chart
+\usepackage{pdflscape}                                        % Landscape pages
+\usepackage{cite}                                             % Compressed and sorted lists of citations
+\usepackage{listings}                                         % Displayed code
+\usepackage{siunitx}                                          % Easy unit control
+
+% -------------------------------------------------------------
+% USER VARIABLES AND DEFINITIONS                              % EDIT THIS SECTION
+% -------------------------------------------------------------
+%\newcommand{}{}
+\newcommand{\theTitle}{My final year dissertation}            % Thesis title
+\newcommand{\runningTitle}{Short thesis title}                % Short title for headers
+\newcommand{\theAuthor}{A.U.  \textbf{Thor}}                  % Author name
+\newcommand{\theSupervisor}{S.U. Pervisor}                    % Name of supervisor
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\al}{\alpha}
+
+\definecolor{mygreen}{RGB}{28,130,0}                          % Define your own colours
+\definecolor{ocre}{RGB}{45,105,145} 
+\definecolor{barblue}{RGB}{153,204,254}                       % Used in Gantt chart
+\definecolor{groupblue}{RGB}{51,102,254}                      % Used in Gantt chart
+\definecolor{linkred}{RGB}{165,0,33}                          % Used in Gantt chart
+
+\captionsetup[table]{skip=6pt}                                % Gap between captions and tables
+\graphicspath{{Images/}}                                      % Path to folder where pictures are stored
+\makenomenclature                                             % Create a nomenclature
+\setlength{\nomlabelwidth}{10mm}                              % Set width of nomenclature label
+\setlength{\headheight}{14pt}                                 % Minimum hadhight length
+
+% -------------------------------------------------------------
+% NOTATION AND ACRONYMS (DEFINITIONS)
+% -------------------------------------------------------------
+\newcommand{\notitem}[2]{{$#1$} & {~ -- ~ #2}}
+\newcommand{\acritem}[2]{{#1} & {~ -- ~ #2}}
+
+% -------------------------------------------------------------
+% HEADERS AND FOOTERS
+% -------------------------------------------------------------
+\fancyhead[LE,RO]{\slshape\nouppercase{\leftmark}}            % Header right-odd and left-even: chapter title
+\fancyhead[CE,CO]{}                                           % Header centre-odd and centre-even: empty
+\fancyhead[LO,RE]{\slshape\nouppercase{\rightmark}}           % Header left-odd and right even: section title
+\fancyfoot[LE,RO]{\thepage}                                   % Footer right-odd and left-even: page number
+%\fancyfoot[LE,RE]{\thepage}                                  % Footer right-odd and left-even: page number
+%\fancyfoot[R]{\thepage}                                      % Footer right-odd and left-even: page number
+\fancyfoot[CE,CO]{}                                           % Footer centre-odd and centre-even: empty
+\fancyfoot[LO,RE]{\theAuthor}                                 % Footer left-odd and right-even: author name
+%\fancyfoot[L]{\theAuthor}                                    % Footer left-odd and right-even: author name
+
+% ------------------------------------------------------------------
+% DATA PLOTTING AND SETTINGS
+% ------------------------------------------------------------------
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{calc,backgrounds,matrix}
+\usetikzlibrary{shapes,arrows,shapes.multipart}                % For flowcharts, diagrams etc
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}                                    % Generates table from .csv
+\pgfplotsset{compat=newest}
+\usetikzlibrary{shapes,positioning,intersections,quotes,fit,patterns}
+\usepgfplotslibrary{patchplots}
+\pgfplotsset{compat = 1.15}
+\pgfplotsset{
+        tick scale binop=\times,                              % Use times sign for scale/axis
+        tick label style={font=\footnotesize},                % Font size for tick labels
+        label style={font=\footnotesize},                     % Font size for axis labels
+        legend style={draw=none, legend cell align=left, font=\footnotesize}, % Legend style definitions
+        grid style={line width=.1pt, draw=gray!10},           % Minor gridlines settings
+        major grid style={line width=.2pt,draw=gray!50},      % Major gridline settings
+        grid=both,                                            % Gridline selection
+        minor tick num = 5,                                   % Number of minor ticks
+        ymajorgrids=true, xmajorgrids=true,                   % Activate X, Y, grids
+        every x tick scale label/.style={at={(xticklabel cs:0.9,5pt)},right,inner sep=0pt},
+}
+\usepgfplotslibrary{groupplots}                               % For group plots
+\usetikzlibrary{pgfplots.groupplots}                          % For group plots 
+
+
+% -------------------------------------------------------------
+% WORD AND CHARACTER COUNT OUTPUT (STATS AT END OF DOCUMENT)
+% -------------------------------------------------------------
+\immediate\write18{texcount -inc -incbib -sum=1,1,1,1,1,1,1 LaTeX_Workshop.tex 
+   > /tmp/wordcount.tex}                                      % Activate word count script
+\newcommand\wordcount{\verbatiminput{/tmp/wordcount.tex}}     % Create \wordcount command
+%TC:group tabular 0 1
+%TC:group table 0 1
+
+% -------------------------------------------------------------
+% START DOCUMENT CONTENT
+% -------------------------------------------------------------
+\begin{document}                                              % Start document
+
+% -------------------------------------------------------------
+% COVER PAGE
+% -------------------------------------------------------------
+\begin{titlepage}                                             % Create cover page
+\pagestyle{empty}                                             % No headers or footers on cover
+\centering                                                    % Centre all contents on cover page
+\includegraphics[width=1.1\textwidth]{logo.jpg} \\ % UoE-SoE logo
+\vspace{60mm}                                                 % Vertical space
+\hrule\vspace{5mm}                                            % Horizontal rule above title
+{\LARGE \textbf{\textcolor{mygreen}{\theTitle}}} \\           % The title of the thesis
+\vspace{5mm}\hrule\vspace{20mm}                               % Horizontal rule below title
+{\large \theAuthor} \\ \vspace{2mm}                           % The author
+{\large (Supervisor: \theSupervisor)}                         % The supervisor
+\vfill                                                        % Fill space down to bottom of page
+{\small The University of Edinburgh \\ \today}                % University and date at bottom
+\cleardoublepage                                              % Go to next odd page
+\end{titlepage}
+
+% -------------------------------------------------------------
+% FRONTMATTER
+% -------------------------------------------------------------
+\pagenumbering{roman}                                         % Roman page numbering for preamble
+\setcounter{page}{1}                                          % Start page counter
+% \input{Chapters/Front_Matter.tex}                             % Call frontmatter file
+\tableofcontents                                              % Add table of contents
+
+% -------------------------------------------------------------
+% CHAPTER
+% -------------------------------------------------------------
+\pagestyle{fancy}                                             % Include fancy headers and footers
+\chapter[Introduction]{This is the introduction}              % Short and long title versions
+\label{chap:intro}                                            % Chapter label
+\pagenumbering{arabic}                                        % Change age numbering to arabic
+\input{chapters/povzetek.tex}                             % Call file with chapter
+
+% -------------------------------------------------------------
+% CHAPTER
+% -------------------------------------------------------------
+\chapter[Literature review]{Literature review}                % Short and long title versions
+\label{chap:litreview}                                        % Chapter label
+% \input{Chapters/Literature_Review.tex}                        % Call file with chapter
+
+% -------------------------------------------------------------
+% CHAPTER
+% -------------------------------------------------------------
+\chapter{Theory}                                              % Short and long title versions
+\label{chap:theory}                                           % Chapter label
+% \input{Chapters/Theory.tex}                                   % Call file with chapter
+
+%----------------------------------------------------------------------------------------
+% NOTATION AND NOMENCLATURE
+%----------------------------------------------------------------------------------------
+\chapter*{Notation}                                           % Chapter title
+\label{chap:notation}                                         % Chapter label
+\addcontentsline{toc}{chapter}{Notation}                      % Add Notation to Table of Contents
+% \input{Chapters/Notation}                                     % Call file with nomenclature
+%\printnomenclature                                           % Alternative way to add nomenclature
+
+% -------------------------------------------------------------
+% APPENDIX
+% -------------------------------------------------------------
+\appendix                                                     % Start appendices
+\chapter{This is the first appendix}                          % Title of first appendix
+% \input{Chapters/Appendix.tex}                                 % Call file with appendix
+
+% -------------------------------------------------------------
+% BIBLIOGRAPHY (DATABASE)
+% -------------------------------------------------------------
+\bibliographystyle{unsrt}
+\bibliography{LaTeX_Workshop}
+
+% -------------------------------------------------------------
+% BIBLIOGRAPHY (LOCAL) - Uncomment to use instead of BIB
+% -------------------------------------------------------------
+% \thebibliography{file}
+% \begin{thebibliography}{99}                                   % Start bibliography
+% %                                                             % Can be in a separate file, \input(...)
+% \bibitem{Bonfanti:2016ab} A. Bonfanti, A. Bhaskar, M.F. Ashby.                      % Author names
+%         Plastic deformation of cellular materials,                                  % Title of publication
+%         \textit{Reference Module in Materials Science and Materials Engineering},   % Journal name
+%         2016.                                                                       % Vol, num, pg, year
+% %
+% \bibitem{Lee:2017aa} J.H. Lee, D.R. Howel, W.P. Meehan III, G.L. Iverson, A.J. Gardner.
+%         Effects of Exercise on Sport Concussion Assessment Tool--Third Edition Performance in Professional Athletes,
+%         \textit{The Orthopaedic Journal of Sports Medicine},
+%         \textbf{5}(9):1--7, 2017. 
+% %
+% \bibitem{Lang:1988aa} R.J. Lang.
+%         \textit{The complete book of origami: Step-by-step instructions in over 1000 diagrams},
+%         Dover Publications, Inc.
+%         1988. 
+% %
+% \bibitem{Kingslake:1992aa} R. Kingslake.
+%         \textit{Optics in photography},
+%         SPIE Optical engineering press
+%         1992. 
+% %
+% \bibitem{Chen:2011ab} W. Chen, B. Song.
+%         \textit{Split Hopkinson (Kolsky) bar: Design, Testing and Applications},
+%         Mechanical Engineering Series, Springer
+%         2011. 
+% %
+% \bibitem{Fairlie:2008aa} G.E. Fairlie, R. Hart, E.J. Draper.
+%         \textit{Structural response to high explosive blast loading},
+%         in MABS 20 - Military Aspects of Blast and Shock,
+%         2008. 
+% %
+% \end{thebibliography}                                         % End bibliography
+
+% -------------------------------------------------------------
+% LISTS OF FIGURES AND TABLES
+% -------------------------------------------------------------
+\listoffigures                                                % Add list of figures
+\listoftables                                                 % Add list of tables
+
+% -------------------------------------------------------------
+% WORD COUNT OUTPUT
+% -------------------------------------------------------------
+\newpage                                                      % Force new page
+\pagestyle{empty}                                             % Remove headers and footers from this page/section
+\subsubsection*{Document statistics}                          % Section title (not in TOC)
+\wordcount                                                    % Output document statistics
+
+% -------------------------------------------------------------
+% END DOCUMENT CONTENT
+% -------------------------------------------------------------
+\end{document}
+
+
+
+
