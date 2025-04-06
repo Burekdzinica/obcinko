@@ -1,6 +1,3 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/Burekdzinica/obcinko-backend
-[submodule "obcinko-frontend"]
-	path = obcinko-frontend
+[submodule "frontend"]
+	path = frontend
 	url = https://github.com/Burekdzinica/obcinko-frontend
